@@ -46,6 +46,8 @@ app.post('/transfer', async (req: Request, res: Response) => {
 
   const coinAmt = amount / curPrice;
 
+  // bank activity here (deduct from user bank acc)
+
   res.status(200).json({message: `call smart contract to send ${coinAmt} ${coin} to ${walletAddr}`})
 })
 
