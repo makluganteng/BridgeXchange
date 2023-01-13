@@ -13,5 +13,11 @@
   "license": "ISC",
   "devDependencies": {
     "turbo": "^1.6.3"
+  },
+  "dependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.7.1",
+    "react-sliding-pane": "^7.3.0"
   }
 }
