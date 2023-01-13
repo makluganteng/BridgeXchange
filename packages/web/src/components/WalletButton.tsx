@@ -1,7 +1,7 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState,useEffect } from "react";
 
 
 export default function Wallet_button({
@@ -9,10 +9,23 @@ export default function Wallet_button({
 }: {
   setPanel: React.Dispatch<React.SetStateAction<any>>;
 }) {
-  const { address, connector, isConnected } = useAccount();
+
+  const [isDefinitelyConnected, setIsDefinitelyConnected] = useState(false);
+
+  
+  const { address, connector, isConnected,isDisconnected } = useAccount();
+  
+  useEffect(() => {
+    if (isConnected) {
+      setIsDefinitelyConnected(true);
+    } else {
+      setIsDefinitelyConnected(false);
+    }
+  }, [address]);
+
   return (
     <div>
-      {isConnected ? (
+      {isDefinitelyConnected ? (
         <MdOutlineAccountBalanceWallet
           onClick={() => setPanel({ isPaneOpen: true })}
         ></MdOutlineAccountBalanceWallet>
