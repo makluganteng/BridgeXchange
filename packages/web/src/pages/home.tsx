@@ -1,16 +1,15 @@
 import { FC } from "react";
 import Banner from "../Components/Banner/Banner";
-import Trending from "../Components/Trending/Trending";
+import Thumbnail from "../Components/Thumbnail/Thumbnail";
 
-const New:FC = () =>{
+const Home: FC = () => {
     return (
         <div>
-
             <Banner />
-            <Trending />
+            <Thumbnail />
 
         </div>
     )
 }
 
-export default New;
+export default Home;

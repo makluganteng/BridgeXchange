@@ -18,7 +18,7 @@ const Banner: FC = () => {
           all verified on the blockchain for authenticity.
         </p>
         <button className="bg-[#5F9DF7] text-2xl text-[#fff] font-Poppins font-bold px-11 py-5 border border-solid rounded-[50px]">
-          Explore
+          <a href="">Explore</a>
         </button>
 
         <div className=" flex mt-[150px]">
