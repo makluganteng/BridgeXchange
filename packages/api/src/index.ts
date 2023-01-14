@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import axios from 'axios';
+import { ethers, Wallet } from 'ethers';
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -15,19 +16,6 @@ interface Coin {
 }
 
 let COINS: Coin[];
-
-// POST /transfer
-// body {
-//   cardDetails: {
-//     cardNumber: string;
-//     expiryDate: Date;
-//     cvv: string;
-//   };
-//   amount: number;
-//   currency: string;
-//   coin: string;
-//   walletAddr: string;
-// }
 
 app.post('/transfer', async (req: Request, res: Response) => {
   const { cardDetails, amount, currency, coin, walletAddr } = req.body; 
@@ -44,11 +32,18 @@ app.post('/transfer', async (req: Request, res: Response) => {
     return res.status(404).json({ message: `error: currency not supported: ${currency}`});
   }
 
-  const coinAmt = amount / curPrice;
+  const coinAmt = `${amount / curPrice}`;
+
+  // use test acc #19
+  const provider = new ethers.providers.JsonRpcProvider('http://localhost:8545');
+  const fromWallet = new Wallet('0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e', provider); // Your wallet private key
+  const etherAmt = ethers.utils.parseEther(coinAmt)
+  const transactionResponse = await fromWallet.sendTransaction({to: walletAddr, value: etherAmt})
+  console.log(transactionResponse);
 
   // bank activity here (deduct from user bank acc)
 
-  res.status(200).json({message: `call smart contract to send ${coinAmt} ${coin} to ${walletAddr}`})
+  res.status(200).json(transactionResponse);
 })
 
 app.get('*', (_req: Request, res: Response) => {
