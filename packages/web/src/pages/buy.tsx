@@ -4,8 +4,15 @@ import Thumbnail from "../Components/Thumbnail/Thumbnail";
 
 import Image from "next/image";
 import img from "../Components/Thumbnail/d6.png";
+import { useRouter } from "next/router";
 
 const Buy: FC = () => {
+
+  const router = useRouter()
+  const handleBuyPandaBank = () => {
+    router.push('/bank')
+  }
+
   return (
     <div className="bg-[#F3EFE0] h-[960px] flex items-center justify-center">
       <div className=" w-[1300px] h-[700px] border-solid border border-8 rounded-[50px]
@@ -28,7 +35,8 @@ const Buy: FC = () => {
           border border-solid px-[100px] rounded-full bg-[#C780FA] text-[#ECE8DD]"> Buy with ETH</button>
           <br />
           <button className="my-2 py-4 font-Poppins font-bold text-4xl
-          border border-solid px-[22px] rounded-full bg-[#C58940] text-[#ECE8DD]"> Buy with Panda Bank</button>
+          border border-solid px-[22px] rounded-full bg-[#C58940] text-[#ECE8DD]"
+          onClick = {handleBuyPandaBank}> Buy with Panda Bank</button>
         </div>
       </div>
     </div>
