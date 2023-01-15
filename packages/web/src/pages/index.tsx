@@ -1,4 +1,5 @@
 import Header from "../Components/Header";
+import Home from "./home"
 import Image from "next/image";
 import metaMaskLogo from "../assets/MetaMask_Fox.svg.png";
 
@@ -7,7 +8,7 @@ import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import { useAccount, useBalance } from "wagmi";
 
-export default function Home() {
+export default function Base() {
   const [state, setPanel] = useState({
     isPaneOpen: false,
   });
@@ -30,6 +31,8 @@ export default function Home() {
   return (
     <div>
       <Header setPanel={setPanel}></Header>
+      <Home></Home>
+
       {isConnected ? (
         <SlidingPane
           width="400px"
