@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { runMain } from "../../../function/mynft";
 import * as ethers from 'ethers';
 import ABI from "../../../assets/message.json";
+import nftABI from '../../../assets/ERC721.json'
 
 const NFTPage: NextPage = () => {
   const router = useRouter();
@@ -15,22 +16,21 @@ const NFTPage: NextPage = () => {
 
   const contractAddress = "0x4c73628fa476fa9e7735509452971b5a27093aa1"; // address of the deployed contract
   const abi = ABI// ABI of the contract
-  const provider = new ethers.providers.AlchemyProvider('goerli', 'vQzzUz2zwttZpE_hp0eKfb-m9P1pJWke');
-  const walletProvider = new ethers.providers.JsonRpcProvider('https://goerli.infura.io/v3/c5e3f8756c1c4c86aec6f14ba737aea9')
+  //const nftAbi = nftABI
+  //const provider = new ethers.providers.AlchemyProvider('goerli', 'vQzzUz2zwttZpE_hp0eKfb-m9P1pJWke');
+  const walletProvider = new ethers.providers.Web3Provider(window.ethereum as any);
   const handleSell = async () => {
-    const accounts = walletProvider.getSigner("0x5073c3929c9BdECd87Cc63068Fd3185F0b6f22A5")
-    console.log(accounts)
+  const accounts = walletProvider.getSigner()
     const smartContractNFT = new ethers.Contract(contractAddress, abi, accounts)
-    const options = { gasLimit: 8000000 }
-    try {
-      const list = await smartContractNFT.functions.listItem(nftAddress, tokenId, 1, options)
-      console.log("fsfsf")
-      const receipt = await list.wait()
-      console.log(receipt)
-    } catch (e) {
+    console.log(smartContractNFT)
+    try{
+      const nft = new ethers.Contract(nftAddress,nftABI,accounts)
+      await nft.approve(contractAddress,tokenId)
+      const list = await smartContractNFT.getListing(nftAddress,tokenId)
+      console.log(list)
+    }catch(e){
       console.log(e)
     }
-
   };
 
 
