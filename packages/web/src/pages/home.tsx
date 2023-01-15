@@ -5,6 +5,8 @@ import Footer from "../Components/footer/footer";
 import Step from "../Components/step/step";
 import Thumbnail from "../Components/Thumbnail/Thumbnail";
 
+
+
 const Home: FC = () => {
     return (
         <div>

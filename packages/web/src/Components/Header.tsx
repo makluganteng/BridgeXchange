@@ -51,9 +51,11 @@ export default function Header({
         <div className={style.headerItem}> Stats </div>
         <div className={style.headerItem}> Resources </div>
         <div className={style.headerItem}> Create </div>
-        <div className={style.headerIcon}>
-          <CgProfile />
-        </div>
+        <Link href="/profile">
+          <div className={style.headerIcon}>
+            <CgProfile />
+          </div>
+        </Link>
         <div className={style.headerIcon}>
           <WalletButton setPanel={setPanel}></WalletButton>
         </div>
