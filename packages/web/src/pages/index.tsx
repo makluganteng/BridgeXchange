@@ -7,6 +7,7 @@ import { useState } from "react";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import { useAccount, useBalance } from "wagmi";
+import { useEffect } from "react";
 
 export default function Base() {
   const [state, setPanel] = useState({
@@ -23,6 +24,10 @@ export default function Base() {
   };
 
   const { address, connector, isConnected } = useAccount();
+
+  useEffect(() => {
+    sessionStorage.setItem("MetamaskAddress", address as string)
+  })
 
   const { data, isError, isLoading } = useBalance({
     address: address,
