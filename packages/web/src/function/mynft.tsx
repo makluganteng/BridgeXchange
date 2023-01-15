@@ -11,14 +11,15 @@ const alchemy = new Alchemy(config);
 
 const main = async () => {
     // Get all NFTs
-    
+    const currentAddress = sessionStorage.getItem("MetamaskAddress") || "Undefined"
+
     const nfts = await alchemy.nft.getNftsForOwner(
-      "0x790eb45c937c5646eb1f625f0577b4d2100a3fec"
+        currentAddress
     );
     // Print NFTs
-    
+
     const media = nfts.ownedNfts.map((value) => {
-        
+
         return value
     })
     //console.log(media);
@@ -28,7 +29,7 @@ const main = async () => {
 };
 
 export const runMain = async () => {
-    try {   
+    try {
         const media = await main();
         return media
         //process.exit(0);
