@@ -1,5 +1,5 @@
 import { FC } from "react";
-import picture from '../Explore/explore.png';
+import picture from './explore.png';
 import Image from "next/image";
 
 const Explore: FC = () => {

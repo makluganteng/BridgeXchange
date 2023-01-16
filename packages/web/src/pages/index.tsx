@@ -1,4 +1,4 @@
-import Header from "../Components/Header";
+import Header from "@/components/Header";
 import Home from "./home"
 import Image from "next/image";
 import metaMaskLogo from "../assets/MetaMask_Fox.svg.png";
@@ -130,10 +130,10 @@ export default function Base() {
 
   return (
     <div>
-      <Header setPanel={setPanel}></Header>
-      <Home></Home>
+      <Header setPanel={setPanel} />
+      <Home />
 
-      {isConnected ? (
+      {isConnected && (
         <SlidingPane
           width="400px"
           isOpen={state.isPaneOpen}
@@ -197,7 +197,7 @@ export default function Base() {
             </button>
           </div>
         </SlidingPane>
-      ) : null}
+      )}
     </div>
   );
 }
