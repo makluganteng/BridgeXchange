@@ -20,7 +20,8 @@ const Thumbnail: FC = () => {
   }
 
   return (
-    <div className="p-[100px] h-[1000px] bg-[#F3EFE0]">
+    
+
         <Card maxW="sm">
           <CardBody className=" bg-[#F0DBDB] rounded-lg">
             <Image
@@ -44,7 +45,6 @@ const Thumbnail: FC = () => {
             </Stack>
           </CardBody>
         </Card>
-    </div>
   );
 };
 

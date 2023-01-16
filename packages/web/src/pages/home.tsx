@@ -47,9 +47,8 @@ const Home: FC = () => {
             <Step />
             <Explore />
             <Footer />
-
-        </div>
-    )
+      </div>
+    );
 }
 
 export default Home;

@@ -46,6 +46,7 @@ const NFTPage: NextPage = () => {
         setTitle(resp[0].contract.name || "")
       }
     };
+    
     fetchData()
   },);
 
