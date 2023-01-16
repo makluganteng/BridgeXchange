@@ -9,15 +9,15 @@ import { useRouter } from "next/router";
 const Buy: FC = () => {
   const { config } = usePrepareContractWrite({
     address: "0x4c73628fa476fa9e7735509452971b5a27093aa1",
-    functionName: "buyItem(address,uint256)",
+    functionName: "withdrawProceeds",
     abi: ABI,
     args: [0, "tokenId"],
+    
   });
-
 
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
   const router = useRouter();
-  
+
   const handleBuyPandaBank = () => {
     router.push("/bank");
   };

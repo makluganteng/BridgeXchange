@@ -92,8 +92,6 @@ const New: FC = () => {
           })}
 
 
-
-
           {/* {NFT?.map((value) => (
               //const adressnft = NFT.
             <div onClick={()=>{handleSellNft("asd","asd")}}>
