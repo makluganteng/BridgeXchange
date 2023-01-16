@@ -1,23 +1,19 @@
 import { FC } from "react";
-import Banner from "../Components/Banner/Banner";
-import Explore from "../Components/explore/explore";
-import Footer from "../Components/footer/footer";
-import Step from "../Components/step/step";
-import Thumbnail from "../Components/Thumbnail/Thumbnail";
-
-
+import Banner from "@/components/Banner";
+import Explore from "@/components/Explore";
+import Footer from "@/components/Footer";
+import Step from "@/components/Step";
+import Thumbnail from "@/components/Thumbnail";
 
 const Home: FC = () => {
-    return (
-        <div>
-            <Banner />
-            <Thumbnail />
-            <Step />
-            <Explore />
-            <Footer />
-
-        </div>
-    )
+  return (
+    <div>
+      <Banner />
+      <Thumbnail />
+      <Step />
+      <Explore />
+    </div>
+  )
 }
 
 export default Home;

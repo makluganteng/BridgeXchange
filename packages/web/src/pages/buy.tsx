@@ -3,8 +3,13 @@ import { FC } from "react";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import ABI from "../assets/message.json";
 
+import {
+  Card,
+  CardBody,
+  Stack,
+} from "@chakra-ui/react";
 import Image from "next/image";
-import img from "../Components/Thumbnail/d6.png";
+import img from "@/components/Thumbnail/d6.png";
 import { useRouter } from "next/router";
 const Buy: FC = () => {
   const { config } = usePrepareContractWrite({
@@ -29,14 +34,18 @@ const Buy: FC = () => {
       border-[#E8C4C4] flex items-center justify-around "
       >
         <div className="pl-20">
-          <Image
-            src={img}
-            width={500}
-            height={500}
-            alt=""
-            unoptimized={true}
-            className="rounded-lg border border-solid border-8"
-          />
+          <Card maxW="sm">
+            <CardBody className=" bg-[#F0DBDB] rounded-lg">
+              <Image
+                src={img}
+                width={600}
+                height={600}
+                alt=""
+                unoptimized={true}
+                className ="rounded-lg"
+              />
+            </CardBody>
+          </Card>
         </div>
         <div className="my-2 pr-32">
           <h1 className="my-2 py-4 font-Poppins font-bold text-6xl text-[#86C8BC]">
