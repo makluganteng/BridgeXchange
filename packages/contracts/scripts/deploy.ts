@@ -1,23 +1,35 @@
-import { ethers } from "hardhat";
+import { developmentChains, VERIFICATION_BLOCK_CONFIRMATIONS} from "../helper-hardhat-config"
+import verify from "../utils/verify"
+import {DeployFunction} from "hardhat-deploy/types"
+import {HardhatRuntimeEnvironment} from "hardhat/types"
 
-async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
+const deployNftMarketplace: DeployFunction = async function (
+    hre: HardhatRuntimeEnvironment
+  ) {
+    const { deployments, getNamedAccounts, network, ethers } = hre
+    const { deploy, log } = deployments
+    const { deployer } = await getNamedAccounts()
+    const waitBlockConfirmations = developmentChains.includes(network.name)
+    ? 1
+    : VERIFICATION_BLOCK_CONFIRMATIONS
 
-  const lockedAmount = ethers.utils.parseEther("1");
+    log("----------------------------------------------------")
+    const args: any[] = []
+    const nftMarketplace = await deploy("NftMarketplace", {
+        from: deployer,
+        args: args,
+        log: true,
+        waitConfirmations: waitBlockConfirmations,
+    })
 
-  const Lock = await ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
-
-  await lock.deployed();
-
-  console.log(`Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`);
+    // Verify the deployment
+    if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
+        log("Verifying...")
+        await verify(nftMarketplace.address, args)
+    }
+    log("----------------------------------------------------")
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+export default deployNftMarketplace
+deployNftMarketplace.tags = ["all", "nftmarketplace"]
+
