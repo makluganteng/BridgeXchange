@@ -2,7 +2,7 @@ import { NextPage } from "next"
 import { useRouter } from "next/router"
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { runMain } from "../../../function/mynft";
+import { runMain } from "../../../lib/mynft";
 
 
 const NFTPage: NextPage = () => {
@@ -19,7 +19,7 @@ const NFTPage: NextPage = () => {
       const resp = nft?.filter(value => value.tokenId === tokenId && value.contract.address === nftAddress)
       console.log(resp)
       if (resp) {
-        setImage(resp[0].media[0].raw)
+        setImage(resp[0]?.media[0].raw)
         setTitle(resp[0].contract.name || "")
       }
     };
