@@ -14,26 +14,26 @@ const NFTPage: NextPage = () => {
   const [title, setTitle] = useState<string>('')
   // const walletAddress = sessionStorage.getItem("MetamaskAddress")
 
-  const contractAddress = "0x4c73628fa476fa9e7735509452971b5a27093aa1"; // address of the deployed contract
+  const contractAddress = "0x7136c7ecdb01f815fd151a01d8fd17e34d1e3b2e"; // address of the deployed contract
   const abi = ABI// ABI of the contract
   //const nftAbi = nftABI
   //const provider = new ethers.providers.AlchemyProvider('goerli', 'vQzzUz2zwttZpE_hp0eKfb-m9P1pJWke');
   const walletProvider = new ethers.providers.Web3Provider(window.ethereum as any);
   const handleSell = async () => {
-  const accounts = walletProvider.getSigner()
+    const accounts = walletProvider.getSigner()
     const smartContractNFT = new ethers.Contract(contractAddress, abi, accounts)
     console.log(smartContractNFT)
-    try{
-      const nft = new ethers.Contract(nftAddress,nftABI,accounts)
-      await nft.approve(contractAddress,tokenId)
-      const list = await smartContractNFT.getListing(nftAddress,tokenId)
+    try {
+      const nft = new ethers.Contract(nftAddress as string, nftABI, accounts)
+      await nft.approve(contractAddress, tokenId)
+      const PRICE = ethers.utils.parseEther("0.01");
+      //const list = await smartContractNFT.listItem(nftAddress, tokenId, PRICE)
+      const list = await smartContractNFT.getListing(nftAddress, tokenId)
       console.log(list)
-    }catch(e){
+    } catch (e) {
       console.log(e)
     }
   };
-
-
 
   useEffect(() => {
     const fetchData = async () => {

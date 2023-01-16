@@ -2,14 +2,64 @@ import Header from "../Components/Header";
 import Home from "./home"
 import Image from "next/image";
 import metaMaskLogo from "../assets/MetaMask_Fox.svg.png";
-
 import { useState } from "react";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import { useAccount, useBalance } from "wagmi";
 import { useEffect } from "react";
+import { runMain } from "../function/mynft";
+import ABI from "../assets/message.json";
+import * as ethers from 'ethers';
+import nftABI from '../assets/ERC721.json'
+import { connectorsForWallets } from "@rainbow-me/rainbowkit";
+import { NextPage } from "next";
+
+interface TokenResponse {
+  balance: number;
+  contract: {
+    address: string;
+    contractDeployer: string;
+    deployedBlockNumber: number;
+    name: string;
+  }
+  openSea: {
+    collectionName: string | undefined;
+    description: string | undefined;
+    discordUrl: string | undefined;
+    externalUrl: string | undefined;
+    floorPrice: number | undefined;
+    imageUrl: string | undefined;
+    lastIngestedAt: string;
+    safelistRequestStatus: string | undefined;
+    twitterUsername: string | undefined;
+  }
+  symbol: string;
+  tokenId: number;
+  tokenType: string;
+  totalSupply: number;
+  prototype: Object;
+  description: string;
+  rawMetadata: {
+    image: string;
+  }
+  media: {
+    bytes: number;
+    format: string;
+    gateway: string;
+    raw: string;
+  }[]
+}
+
+interface OwnedResponse {
+  nftAddress: string;
+  nftURL: string;
+  tokenId: number;
+
+}
 
 export default function Base() {
+  let walletProvider;
+
   const [state, setPanel] = useState({
     isPaneOpen: false,
   });
@@ -23,15 +73,60 @@ export default function Base() {
     setIsHover(false);
   };
 
+  const [NFT, setNFT] = useState<TokenResponse[]>([]);
+
   const { address, connector, isConnected } = useAccount();
+
 
   useEffect(() => {
     sessionStorage.setItem("MetamaskAddress", address as string)
-  })
+
+    const fetchData = async () => {
+      const nft: TokenResponse[] = await runMain();
+      setNFT(nft);
+    }
+    fetchData()
+    walletProvider = new ethers.providers.Web3Provider(window.ethereum as any)
+  }, [])
 
   const { data, isError, isLoading } = useBalance({
     address: address,
   });
+
+  const checkMyListing = async (responseMap: any) => {
+    const accounts = walletProvider.getSigner()
+    const smartContractNFT = new ethers.Contract(contractAddress, abi, accounts)
+    console.log(responseMap)
+    try {
+      var nftAddress = responseMap[1].nftAddress
+      var tokenId = responseMap[1].tokenId
+
+      const nft = new ethers.Contract(nftAddress, nftABI, accounts)
+      await nft.approve(contractAddress, tokenId)
+      //for (let i = 0; i < responseMap.length; i++) {
+
+      const list = await smartContractNFT.getListing(nftAddress, tokenId)
+      console.log(list)
+      //console.log(tokenId)
+      //}
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const mapNFT = () => {
+    let responseMap: OwnedResponse[] = []
+    NFT.map((value) => {
+      responseMap.push({ nftAddress: value.contract.address, tokenId: value.tokenId, nftURL: value.rawMetadata.image })
+    })
+    console.log(responseMap)
+    checkMyListing(responseMap)
+  }
+
+  //smart contract stuff ----------------------------------------------------------
+  //const walletProvider = new ethers.providers.Web3Provider(window.ethereum as any);
+  const contractAddress = "0x7136c7ecdb01f815fd151a01d8fd17e34d1e3b2e"; // address of the deployed contract
+  const abi = ABI
 
   return (
     <div>
