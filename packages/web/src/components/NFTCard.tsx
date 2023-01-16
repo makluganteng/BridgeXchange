@@ -9,7 +9,7 @@ export default function NFTCard(data) {
 
 
   return (
-    <Card>
+    <Card maxW="sm">
       <CardBody className=" bg-[#F0DBDB] rounded-lg">
         <Image
           src={data.data.rawMetadata?.image}

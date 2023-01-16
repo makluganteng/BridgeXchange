@@ -1,9 +1,9 @@
 import { FC, useState, useEffect, } from "react";
 
-import Footer from "../Components/footer/footer";
-import NFTCard from "../Components/NFTCard";
-import Header from "../Components/Header";
-import { runMain } from "../function/mynft";
+import Footer from "@/components/Footer";
+import NFTCard from "@/components/NFTCard";
+import Header from "@/components/Header";
+import { runMain } from "@/lib/mynft";
 import {  SimpleGrid } from "@chakra-ui/react"; 
 import { NftFilters } from "alchemy-sdk";
 import { useRouter } from "next/router";
