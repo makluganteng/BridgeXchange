@@ -7,7 +7,7 @@ import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import { useAccount, useBalance } from "wagmi";
 import { useEffect } from "react";
-import { runMain } from "../function/mynft";
+import { runMain } from "@/lib/mynft";
 import ABI from "../assets/message.json";
 import * as ethers from 'ethers';
 import nftABI from '../assets/ERC721.json'

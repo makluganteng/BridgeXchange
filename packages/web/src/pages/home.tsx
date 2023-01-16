@@ -1,9 +1,9 @@
-import Banner from "../Components/Banner/Banner";
-import Explore from "../Components/explore/explore";
-import Footer from "../Components/footer/footer";
-import NFTCard from "../Components/NFTCard";
-import Step from "../Components/step/step";
-import Thumbnail from "../Components/Thumbnail/Thumbnail";
+import Banner from "@/components/Banner";
+import Explore from "@/components/Explore";
+import Footer from "@/components/Footer";
+import NFTCard from "@/components/NFTCard";
+import Step from "@/components/Step";
+import Thumbnail from "@/components/Thumbnail";
 import { Card, CardBody, Stack } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
