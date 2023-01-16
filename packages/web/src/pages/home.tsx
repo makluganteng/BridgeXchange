@@ -1,9 +1,9 @@
 import { FC } from "react";
-import Banner from "@/components/Banner";
-import Explore from "@/components/Explore";
-import Footer from "@/components/Footer";
-import Step from "@/components/Step";
-import Thumbnail from "@/components/Thumbnail";
+import Banner from "@/Components/Banner";
+import Explore from "@/Components/Explore";
+import Footer from "@/Components/Footer";
+import Step from "@/Components/Step";
+import Thumbnail from "@/Components/Thumbnail";
 
 const Home: FC = () => {
   return (
@@ -13,7 +13,7 @@ const Home: FC = () => {
       <Step />
       <Explore />
     </div>
-  )
-}
+  );
+};
 
 export default Home;
