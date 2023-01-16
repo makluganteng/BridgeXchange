@@ -34,9 +34,8 @@ app.post('/transfer', async (req: Request, res: Response) => {
 
   const coinAmt = `${amount / curPrice}`;
 
-  // use test acc #19
-  const provider = new ethers.providers.JsonRpcProvider('http://localhost:8545');
-  const fromWallet = new Wallet('0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e', provider); // Your wallet private key
+  const provider = new ethers.providers.AlchemyProvider('goerli', 'vQzzUz2zwttZpE_hp0eKfb-m9P1pJWke');
+  const fromWallet = new Wallet('0xa818bb85b5ecDE6783b1A76f5BcF9f1f75Eb835C', provider); // Your wallet private key
   const etherAmt = ethers.utils.parseEther(coinAmt)
   const transactionResponse = await fromWallet.sendTransaction({to: walletAddr, value: etherAmt})
   console.log(transactionResponse);
