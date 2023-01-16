@@ -1,9 +1,9 @@
 import { FC } from "react";
-import Banner from "@/Components/Banner";
-import Explore from "@/Components/Explore";
-import Footer from "@/Components/Footer";
-import Step from "@/Components/Step";
-import Thumbnail from "@/Components/Thumbnail";
+import Banner from "@/components/Banner";
+import Explore from "@/components/Explore";
+import Footer from "@/components/Footer";
+import Step from "@/components/Step";
+import Thumbnail from "@/components/Thumbnail";
 
 const Home: FC = () => {
   return (

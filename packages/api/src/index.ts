@@ -3,6 +3,7 @@ import cors from 'cors';
 import axios from 'axios';
 import { ethers, Wallet } from 'ethers';
 
+require('dotenv').config()
 const app = express();
 const port = process.env.PORT || 3001;
 
@@ -35,10 +36,11 @@ app.post('/transfer', async (req: Request, res: Response) => {
   const coinAmt = `${amount / curPrice}`;
 
   const provider = new ethers.providers.AlchemyProvider('goerli', 'vQzzUz2zwttZpE_hp0eKfb-m9P1pJWke');
-  const fromWallet = new Wallet('0xa818bb85b5ecDE6783b1A76f5BcF9f1f75Eb835C', provider); // Your wallet private key
+  const fromWallet = new Wallet(process.env.WALLET_PRIVATE_KEY, provider); // Your wallet private key
   const etherAmt = ethers.utils.parseEther(coinAmt)
   const transactionResponse = await fromWallet.sendTransaction({to: walletAddr, value: etherAmt})
-  console.log(transactionResponse);
+  const receipt = await transactionResponse.wait(1)
+  console.log(receipt)
 
   // bank activity here (deduct from user bank acc)
 
@@ -46,6 +48,7 @@ app.post('/transfer', async (req: Request, res: Response) => {
 })
 
 app.get('*', (_req: Request, res: Response) => {
+  console.log(process.env.WALLET_PRIVATE_KEY);
   res.status(404).json({ message: 'not found' })
 })
 
