@@ -10,8 +10,6 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-
-
 const Home: FC = () => {
     const router = useRouter()
 

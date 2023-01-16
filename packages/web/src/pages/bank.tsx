@@ -1,11 +1,14 @@
 import { FC } from "react";
 import React, { useState } from 'react';
+import { useAccount } from 'wagmi'
 
 const Bank: FC = () => {
     const [inputName, setInputName] = useState('')
     const [inputCVV, setInputCVV] = useState('')
     const [inputCardNumber, setInputCardNumber] = useState('')
     const [inputExpDate, setInputExpDate] = useState('')
+
+    const { address, isConnected } = useAccount();
 
     const handleChangeName = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setInputName(event.target.value);
@@ -26,6 +29,29 @@ const Bank: FC = () => {
         setInputExpDate(event.target.value);
         console.log('expdate: ', inputExpDate);
     };
+
+    const handleTransfer = async () => {
+        await fetch('localhost:3001/transfer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: {
+                cardDetails: {
+                    cardNumber: inputCardNumber,
+                    expiryDate: inputExpDate,
+                    cardNumber: inputCVV, 
+                },
+                amount: 100,
+                currency: 'myr',
+                coin: 'ethereum',
+                walletAddr: address,
+            }
+        }).then((resp) => resp.json()
+        .then(() => {
+            console.log('do stuff here')
+        })
+    }
 
     return (
         <div className="bg-[#F3EFE0] h-[1000px] items-center justify-center flex">
@@ -80,6 +106,7 @@ const Bank: FC = () => {
                     required />
                 <div className="flex flex-col items-center m-[20px]">
                     <button type="button"//function yg nge call resghiter
+                        onClick={handleTransfer}
                         className="hover:bg-blue-700 hover:shadow-lg bg-[#5F9DF7] text-1xl text-[#fff] font-Poppins font-bold px-6 py-4 border border-solid rounded-[50px]">Buy
                     </button>
                 </div>
